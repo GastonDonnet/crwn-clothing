@@ -17,7 +17,7 @@ export default class SignUp extends Component {
 
     const { displayName, email, password, confirmPassword } = this.state;
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       alert("No coinciden las contraseñas");
       return;
     }
