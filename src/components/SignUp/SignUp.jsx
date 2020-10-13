@@ -1,49 +1,46 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./SignUp.scss";
 import { FormInput } from "../FormInput/FormInput";
 import { Button } from "../Button/Button";
 import { connect } from "react-redux";
 import { signUpStart } from "../../redux/user/user.actions";
 
-class SignUp extends Component {
-  state = {
+const SignUp = ({dispatch})=> {
+  
+  const [userCredentials, setuserCredentials] = useState({
     displayName: "",
     email: "",
     password: "",
     confirmPassword: "",
-  };
+  })
 
-  handleSubmit = async (event) => {
+  const { displayName, email, password, confirmPassword } = userCredentials;
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const { displayName, email, password, confirmPassword } = this.state;
-    const {dispatch} = this.props
-
     if (password !== confirmPassword) {
       alert("No coinciden las contraseñas");
       return;
     }
-    
     dispatch(signUpStart({ displayName, email, password }))
    
   };
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const { value, name } = event.target;
-
-    this.setState({ [name]: value });
+    setuserCredentials({...userCredentials, [name]: value });
   };
 
-  render() {
-    const { displayName, email, password, confirmPassword } = this.state;
+  
+    
     return (
       <div className="sign-up">
         <h2 className="title">No tengo una cuenta</h2>
         <span>Ingresa con tu email y contraseña</span>
 
-        <form className="sign-up-form" onSubmit={this.handleSubmit}>
+        <form className="sign-up-form" onSubmit={handleSubmit}>
           <FormInput
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             value={email}
             label="Email"
             name="email"
@@ -51,7 +48,7 @@ class SignUp extends Component {
             required
           ></FormInput>
           <FormInput
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             value={displayName}
             label="Nombre"
             name="displayName"
@@ -59,7 +56,7 @@ class SignUp extends Component {
             required
           />{" "}
           <FormInput
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             value={password}
             label="Contraseña"
             name="password"
@@ -67,7 +64,7 @@ class SignUp extends Component {
             required
           ></FormInput>
           <FormInput
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             value={confirmPassword}
             label="Confirmar contraseña"
             name="confirmPassword"
@@ -80,7 +77,7 @@ class SignUp extends Component {
         </form>
       </div>
     );
-  }
+  
 }
 
 

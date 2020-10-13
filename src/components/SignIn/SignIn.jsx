@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {  useState, } from "react";
 import "./SignIn.scss";
 import { FormInput } from "../FormInput/FormInput";
 import { Button } from "../Button/Button";
@@ -8,37 +8,28 @@ import {
 } from "../../redux/user/user.actions";
 import { connect } from "react-redux";
 
-class Signin extends Component {
-  state = {
-    email: "",
-    password: "",
-  };
+const SignIn = ( { dispatch })=> {
+  const [userCredentials, setuserCredentials] = useState({email: "", password: ""})
+  const { email, password } = userCredentials;
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { dispatch } = this.props;
-    const { email, password } = this.state;
-
     dispatch(emailSignInStart({ email, password }));
   };
 
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const { value, name } = event.target;
-
-    this.setState({ [name]: value });
+    setuserCredentials({...userCredentials, [name]: value})
   };
 
-  render() {
-    const { email, password } = this.state;
-    const { dispatch } = this.props;
     return (
       <div className="sign-in">
         <h2>Ya tengo una cuenta</h2>
         <span>Ingresa con tu email y contraseña</span>
 
-        <form className="form" onSubmit={this.handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <FormInput
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             value={email}
             label="Email"
             name="email"
@@ -46,7 +37,7 @@ class Signin extends Component {
             required
           ></FormInput>
           <FormInput
-            handleChange={this.handleChange}
+            handleChange={handleChange}
             value={password}
             label="Contraseña"
             name="password"
@@ -67,7 +58,7 @@ class Signin extends Component {
         </form>
       </div>
     );
-  }
+  
 }
 
-export default connect()(Signin);
+export default connect()(SignIn);
