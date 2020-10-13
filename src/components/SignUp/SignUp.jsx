@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import "./SignUp.scss";
 import { FormInput } from "../FormInput/FormInput";
 import { Button } from "../Button/Button";
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { connect } from "react-redux";
+import { signUpStart } from "../../redux/user/user.actions";
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   state = {
     displayName: "",
     email: "",
@@ -16,29 +17,15 @@ export default class SignUp extends Component {
     event.preventDefault();
 
     const { displayName, email, password, confirmPassword } = this.state;
+    const {dispatch} = this.props
 
     if (password !== confirmPassword) {
       alert("No coinciden las contraseñas");
       return;
     }
-
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      await createUserProfileDocument(user, { displayName });
-
-      this.setState({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
+    
+    dispatch(signUpStart({ displayName, email, password }))
+   
   };
 
   handleChange = (event) => {
@@ -95,3 +82,6 @@ export default class SignUp extends Component {
     );
   }
 }
+
+
+export default connect()(SignUp)

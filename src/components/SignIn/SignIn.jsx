@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import "./SignIn.scss";
 import { FormInput } from "../FormInput/FormInput";
 import { Button } from "../Button/Button";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../redux/user/user.actions";
+import { connect } from "react-redux";
 
-export default class Signin extends Component {
+class Signin extends Component {
   state = {
     email: "",
     password: "",
@@ -12,8 +16,10 @@ export default class Signin extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { dispatch } = this.props;
+    const { email, password } = this.state;
 
-    this.setState({ email: "", password: "" });
+    dispatch(emailSignInStart({ email, password }));
   };
 
   handleChange = (event) => {
@@ -24,6 +30,7 @@ export default class Signin extends Component {
 
   render() {
     const { email, password } = this.state;
+    const { dispatch } = this.props;
     return (
       <div className="sign-in">
         <h2>Ya tengo una cuenta</h2>
@@ -49,7 +56,11 @@ export default class Signin extends Component {
 
           <div className="buttons">
             <Button type="submit">Ingresar</Button>
-            <Button onClick={signInWithGoogle} isGoogleSignIn>
+            <Button
+              type="button"
+              onClick={() => dispatch(googleSignInStart())}
+              isGoogleSignIn
+            >
               Ingresar con Google
             </Button>
           </div>
@@ -58,3 +69,5 @@ export default class Signin extends Component {
     );
   }
 }
+
+export default connect()(Signin);

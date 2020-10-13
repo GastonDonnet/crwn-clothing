@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { auth } from "../../firebase/firebase.utils";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../CartIcon/CartIcon";
 import CartDropdown from "../CartDropdown/CartDropdown";
@@ -13,8 +12,9 @@ import {
   OptionsContainer,
   OptionLink,
 } from "./Header.styles";
+import { signOutStart } from "../../redux/user/user.actions";
 
-const Header = ({ currentUser, hidden }) => (
+const Header = ({ currentUser, hidden, dispatch }) => (
   <HeaderContainer>
     <LogoContainer to="/">
       <Logo className="logo-container"></Logo>
@@ -23,7 +23,7 @@ const Header = ({ currentUser, hidden }) => (
       <OptionLink to="/shop">TIENDA</OptionLink>
       <OptionLink to="/contact">CONTACTO</OptionLink>
       {currentUser ? (
-        <OptionLink as="div" onClick={() => auth.signOut()}>
+        <OptionLink as="div" onClick={() => dispatch(signOutStart())}>
           SALIR
         </OptionLink>
       ) : (
