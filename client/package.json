@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://GastonDonnet.github.io/crwn-clothing",
+  "proxy": "http://localhost:5000/crwn-clothing",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.20.0",
     "firebase": "^7.21.1",
     "gh-pages": "^3.1.0",
     "node-sass": "^4.14.1",
