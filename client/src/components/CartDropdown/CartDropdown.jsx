@@ -5,7 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 import { selectCartItems } from "../../redux/cart/cart.selectors";
 import { Button } from "../Button/Button";
-import { CartItem } from "../CartItem/CartItem";
+import CartItem from "../CartItem/CartItem";
 import "./CartDropdown.scss";
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {

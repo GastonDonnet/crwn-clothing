@@ -1,7 +1,8 @@
 import React from "react";
+import { memo } from "react";
 import "./CartItem.scss";
 
-export const CartItem = ({ item: { imageUrl, price, name, quantity } }) => {
+const CartItem = ({ item: { imageUrl, price, name, quantity } }) => {
   return (
     <div className="cart-item">
       <img src={imageUrl} alt="item" />
@@ -14,3 +15,5 @@ export const CartItem = ({ item: { imageUrl, price, name, quantity } }) => {
     </div>
   );
 };
+
+export default memo(CartItem);
