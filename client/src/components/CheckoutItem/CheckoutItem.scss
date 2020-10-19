@@ -8,7 +8,7 @@
     align-items: center;
 
     .image-container {
-        width: 23%;
+        width: 20%;
         padding-right: 15px;
 
         img {
@@ -20,13 +20,12 @@
     .name,
     .quantity,
     .price {
-        width: 23%;
+        width: 20%;
     }
 
     .quantity {
         display: flex;
-
-
+        justify-content: center;
 
         .arrow {
             cursor: pointer;
@@ -38,7 +37,10 @@
     }
 
     .remove-button {
-        padding-left: 12px;
+        //padding-left: 12px;
         cursor: pointer;
+        margin-left: auto;
+        margin-right: auto;
+        
     }
 }
